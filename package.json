@@ -1,0 +1,23 @@
+{
+  "name": "makeMeServer",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "bluebird":"*",
+    "debug": "*",
+    "express": "*",
+    "cookie-parser": "*",
+    "jade": "*",
+    "socket.io": "*",
+    "morgan": "*",
+    "serve-favicon": "*",
+    "q":"*",
+    "mongoose":"*",
+    "multer":"*",
+    "crypto":"*"
+  }
+}
