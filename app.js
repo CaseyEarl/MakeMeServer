@@ -17,7 +17,7 @@ mongoose.connect("mongodb://localhost/"+dbToConnect);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("Conencted to " + dbToConnect);
+  console.log("Connected to " + dbToConnect);
 });
 
 // view engine setup

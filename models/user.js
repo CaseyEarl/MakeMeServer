@@ -7,9 +7,9 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema(
 	{
-		fullName: String,
+		name: String,
 		phoneNumber: String,
-		password_hash:String,
+		passwordHash:String,
 	},
 	{
         timestamps: {createdAt: 'creation_date', updatedAt: 'last_modified'}
@@ -24,7 +24,7 @@ module.exports.registerUser = function(newUser, callback){
 
 module.exports.getUserByPhone = function(phone, callback){
 	console.log(phone);
-	User.findById(phone,callback);
+	User.findOne({phoneNumber:phone},callback);
 	//User.findOne({email:"caseyearl@outlook.com"},callback);
 };
 
