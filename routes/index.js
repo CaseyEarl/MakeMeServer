@@ -29,11 +29,20 @@ io.on('connection', function (socket) {
 	  	console.log(number);
 	  	console.log(pass);
 	  	User.getUserByPhone(number, function(err,user){
-	  		if(user.passwordHash === hash){
-	  			socket.emit('authenticate',{result: true});
+	  		if(user == null){
+	  			console.log('No User found with that phone number');
+	  			socket.emit('authenticate',{false});
 	  		}
 	  		else{
-	  			socket.emit('authenticate',{result: false});
+	  			console.log('DBs Hash: ' + user.passwordHash);
+	  			if(user.passwordHash === hash){
+	  				console.log('Passwords match')
+	  				socket.emit('authenticate',{true});
+		  		}
+		  		else{
+		  			console.log('Mismatch with passwords');
+		  			socket.emit('authenticate',{false});
+		  		}
 	  		}
 	  	});
 	});
