@@ -26,9 +26,9 @@ io.on('connection', function (socket) {
 		.update(new Buffer(pass, 'binary'))
 		.digest('hex');
 		console.log(hash);
-	  	console.log(phone);
+	  	console.log(number);
 	  	console.log(pass);
-	  	User.getUserByPhone(phone, function(err,user){
+	  	User.getUserByPhone(number, function(err,user){
 	  		if(user.passwordHash === hash){
 	  			socket.emit('authenticate',{result: true});
 	  		}
