@@ -19,11 +19,11 @@ io.on('connection', function (socket) {
 
 	});
 
-	socket.on('authenticate', function(phone, pass){
+	socket.on('authenticate', function(number, pass){
 		console.log("Creating hash of password");
 		var hash = crypto
 		.createHash("md5")
-		.update(new Buffer(password, 'binary'))
+		.update(new Buffer(pass, 'binary'))
 		.digest('hex');
 		console.log(hash);
 	  	console.log(phone);
