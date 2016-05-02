@@ -31,17 +31,17 @@ io.on('connection', function (socket) {
 	  	User.getUserByPhone(number, function(err,user){
 	  		if(user == null){
 	  			console.log('No User found with that phone number');
-	  			socket.emit('authenticate',{false});
+	  			socket.emit('authenticate',{result: false});
 	  		}
 	  		else{
 	  			console.log('DBs Hash: ' + user.passwordHash);
 	  			if(user.passwordHash === hash){
 	  				console.log('Passwords match')
-	  				socket.emit('authenticate',{true});
+	  				socket.emit('authenticate',{result: true});
 		  		}
 		  		else{
 		  			console.log('Mismatch with passwords');
-		  			socket.emit('authenticate',{false});
+		  			socket.emit('authenticate',{result: false});
 		  		}
 	  		}
 	  	});
