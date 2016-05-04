@@ -14,9 +14,10 @@ var io = require('socket.io')(server);
 io.on('connection', function (socket) {
 	socket.emit('confirmation', { hello: 'world' });
 
-	socket.on('register', function (user) {
-		console.log(user); 
-
+	socket.on('register', function (name, number, pass) {
+		console.log(name); 
+		console.log(number);
+		console.log(pass);
 	});
 
 	socket.on('authenticate', function(number, pass){
