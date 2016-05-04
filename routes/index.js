@@ -18,6 +18,8 @@ io.on('connection', function (socket) {
 		console.log(name); 
 		console.log(number);
 		console.log(pass);
+
+		socket.emit('register-confirmation',{result: true})
 	});
 
 	socket.on('authenticate', function(number, pass){
@@ -32,17 +34,17 @@ io.on('connection', function (socket) {
 	  	User.getUserByPhone(number, function(err,user){
 	  		if(user == null){
 	  			console.log('No User found with that phone number');
-	  			socket.emit('authenticate',{result: false});
+	  			socket.emit('authenticate-confirmation',{username: false, password:false});
 	  		}
 	  		else{
 	  			console.log('DBs Hash: ' + user.passwordHash);
 	  			if(user.passwordHash === hash){
 	  				console.log('Passwords match')
-	  				socket.emit('authenticate',{result: true});
+	  				socket.emit('authenticate-confirmation',{username: true, password: true});
 		  		}
 		  		else{
 		  			console.log('Mismatch with passwords');
-		  			socket.emit('authenticate',{result: false});
+		  			socket.emit('authenticate-confirmation',{username:true, password: false});
 		  		}
 	  		}
 	  	});
