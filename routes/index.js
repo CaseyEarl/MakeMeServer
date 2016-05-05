@@ -18,10 +18,39 @@ io.on('connection', function (socket) {
 		console.log(name); 
 		console.log(number);
 		console.log(pass);
+		User.getUserByPhone(number, function(err,user){
+			if(user==null){
+				var hash = crypto
+				.createHash("md5")
+				.update(new Buffer(pass, 'binary'))
+				.digest('hex');
+				var newUser = new User({
+					name:name,
+					phoneNumber:number,
+					passwordHash:hash
 
-		socket.emit('register-confirmation',{result: true})
+				});
+				console.log(hash);
+				/*
+				User.registerUser(newUser, function(err, user){
+					if(err) throw err;
+						socket.emit('register-confirmation',{result: false});
+				});
+				*/
+				socket.emit('register-confirmation',{result: true});
+			}
+			else{
+				socket.emit('register-confirmation',{result: false});
+			}	
+		})
+
+		
+		//remember to check for the user already existed
 	});
 
+	/*******************************************
+	Authenticating User on Sign in
+	********************************************/
 	socket.on('authenticate', function(number, pass){
 		console.log("Creating hash of password");
 		var hash = crypto
