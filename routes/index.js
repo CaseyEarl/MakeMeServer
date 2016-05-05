@@ -31,12 +31,12 @@ io.on('connection', function (socket) {
 
 				});
 				console.log(hash);
-				/*
+				
 				User.registerUser(newUser, function(err, user){
 					if(err) throw err;
 						socket.emit('register-confirmation',{result: false});
 				});
-				*/
+				
 				socket.emit('register-confirmation',{result: true});
 			}
 			else{
