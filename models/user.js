@@ -40,6 +40,27 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 	//User.findOne({email:"caseyearl@outlook.com"},callback);
 };
 
+var connectedUsers = {};
+var numberOfConnectedUsers = 0;
+
+function addConnectedUser(phone, socket) {
+	console.log('NEW CONNECTION')
+	console.log('Users phone: ', phone);
+	console.log('Users socket: ', socket);
+	numberOfConnectedUsers++;
+	console.log('Current number of connectedUsers: ', numberOfConnectedUsers);
+    if(!(phone in connectedUsers)) {
+        connectedUsers[phone]=[socket];
+    }
+    else{
+    	connectedUsers[phone].push(socket);
+    }
+}
+
+module.exports.addConnectedUser = addConnectedUser;
+module.exports.connectedUsers = connectedUsers;
+module.exports.numberOfConnectedUsers = numberOfConnectedUsers;
+
 
 //use users
 //db.createCollection('users');

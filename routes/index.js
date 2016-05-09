@@ -6,16 +6,20 @@ var User = require('../models/user');
 var List = require('../models/list');
 var Reminder = require('../models/reminder');
 
-
 var app = express();
 var server = app.listen(4000);
 var io = require('socket.io')(server);
 
+
+
+
 io.on('connection', function (socket) {
+
+	//socket.id
 	socket.emit('confirmation', { hello: 'world' });
 
 	socket.on('register', function (name, number, pass) {
-		console.log(name); 
+		console.log(name);
 		console.log(number);
 		console.log(pass);
 		User.getUserByPhone(number, function(err,user){
@@ -36,6 +40,7 @@ io.on('connection', function (socket) {
 					if(err) throw err;
 						socket.emit('register-confirmation',{result: false});
 				});
+				User.addConnectedUser(socket, number);
 				
 				socket.emit('register-confirmation',{result: true});
 			}
@@ -68,7 +73,8 @@ io.on('connection', function (socket) {
 	  		else{
 	  			console.log('DBs Hash: ' + user.passwordHash);
 	  			if(user.passwordHash === hash){
-	  				console.log('Passwords match')
+	  				console.log('Passwords match');
+	  				User.addConnectedUser(socket,user.phoneNumber);
 	  				socket.emit('authenticate-confirmation',{username: true, password: true});
 		  		}
 		  		else{
