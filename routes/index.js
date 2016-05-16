@@ -23,10 +23,12 @@ io.on('connection', function (socket) {
 		console.log(number);
 		console.log(to);
 		User.getUserByPhone(number, function(err,user){
-			newList = new List({
-				title:name,
-				from:user._id,
-			})
+			if(user){
+				newList = new List({
+					title:name,
+					from:user._id,
+				});
+			}
 		});
 		/*
 		List.createList(newList,function(err, list){
@@ -36,12 +38,17 @@ io.on('connection', function (socket) {
 		*/
 	});
 
-	socket.on('create-reminder', function(name, number, id){
-
+	socket.on('create-reminder', function(name, number, listID, alarm){
+		console.log(name);
+		console.log(number);
+		console.log(listID);
+		console.log(alarm);
+		/*
 		Reminder.createReminder(newReminder, function(err,reminder){
 			if(err) throw err;
 			//socket.emit('update-')
 		})
+		*/
 	});
 
 	socket.on('register', function (name, number, pass) {
