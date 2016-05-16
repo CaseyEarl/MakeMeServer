@@ -24,7 +24,7 @@ io.on('connection', function (socket) {
 		console.log(to);
 		User.getUserByPhone(number, function(err,user){
 			newList = new List({
-				title:listName,
+				title:name,
 				from:user._id,
 			})
 		});
@@ -37,7 +37,7 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('create-reminder', function(name, number, id){
-		
+
 		Reminder.createReminder(newReminder, function(err,reminder){
 			if(err) throw err;
 			//socket.emit('update-')
