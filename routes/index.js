@@ -18,15 +18,16 @@ io.on('connection', function (socket) {
 	//socket.id
 	socket.emit('confirmation', { hello: 'world' });
 
-	socket.on('create-list', function(name, number){
+	socket.on('create-list', function(name, number, to){
 		console.log(name);
 		console.log(number);
+		console.log(to);
 		User.getUserByPhone(number, function(err,user){
 			newList = new List({
 				title:listName,
 				from:user._id,
 			})
-		}
+		});
 		/*
 		List.createList(newList,function(err, list){
 			if(err) throw err;
@@ -36,6 +37,7 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('create-reminder', function(name, number, id){
+		
 		Reminder.createReminder(newReminder, function(err,reminder){
 			if(err) throw err;
 			//socket.emit('update-')
