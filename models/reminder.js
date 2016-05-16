@@ -10,6 +10,7 @@ var reminderSchema = new Schema(
 		task: String,
 		alarm: Date,
 		status: String,
+		index: Number,
 	},
 	{
         timestamps: {createdAt: 'creation_date', completed: 'last_modified'}

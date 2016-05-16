@@ -11,6 +11,7 @@ var listSchema = new Schema(
 		remindersList:[{type: Schema.Types.ObjectId, ref: 'Reminder'}],
 		to: {type: Schema.Types.ObjectId, ref: 'User'},
 		from: {type: Schema.Types.ObjectId, ref: 'User'},
+		index: Number,
 	},
 	{
         timestamps: {createdAt: 'creation_date', completed: 'last_modified'}

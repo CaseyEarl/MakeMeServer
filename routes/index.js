@@ -18,6 +18,30 @@ io.on('connection', function (socket) {
 	//socket.id
 	socket.emit('confirmation', { hello: 'world' });
 
+	socket.on('create-list', function(name, number){
+		console.log(name);
+		console.log(number);
+		User.getUserByPhone(number, function(err,user){
+			newList = new List({
+				title:listName,
+				from:user._id,
+			})
+		}
+		/*
+		List.createList(newList,function(err, list){
+			if(err) throw err;
+			socket.emit('update-list',{id:list.id});
+		});
+		*/
+	});
+
+	socket.on('create-reminder', function(name, number, id){
+		Reminder.createReminder(newReminder, function(err,reminder){
+			if(err) throw err;
+			//socket.emit('update-')
+		})
+	});
+
 	socket.on('register', function (name, number, pass) {
 		console.log(name);
 		console.log(number);
@@ -40,7 +64,7 @@ io.on('connection', function (socket) {
 					if(err) throw err;
 						socket.emit('register-confirmation',{result: false});
 				});
-				User.addConnectedUser(socket, number);
+				User.addConnectedUser(socket.id, number);
 				
 				socket.emit('register-confirmation',{result: true});
 			}
@@ -74,7 +98,7 @@ io.on('connection', function (socket) {
 	  			console.log('DBs Hash: ' + user.passwordHash);
 	  			if(user.passwordHash === hash){
 	  				console.log('Passwords match');
-	  				User.addConnectedUser(socket,user.phoneNumber);
+	  				User.addConnectedUser(socket.id,user.phoneNumber);
 	  				socket.emit('authenticate-confirmation',{username: true, password: true});
 		  		}
 		  		else{

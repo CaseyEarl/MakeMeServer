@@ -22,12 +22,19 @@ module.exports.registerUser = function(newUser, callback){
 	newUser.save(callback);
 };
 
+/*****************************************************************************
+Querries the user based off a phone number which should be a unique identifier
+*****************************************************************************/
 module.exports.getUserByPhone = function(phone, callback){
 	console.log(phone);
 	User.findOne({phoneNumber:phone},callback);
 	//User.findOne({email:"caseyearl@outlook.com"},callback);
 };
 
+/*****************************************************************************
+Compares the password passed from the user to the password from the database and a true or false is
+returned. Candidate password is already hashed.
+*****************************************************************************/
 module.exports.comparePassword = function(candidatePassword, hash, callback){
 	console.log("Password User entered:");
 	console.log(candidatePassword);
@@ -36,14 +43,14 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 
 	if(candidatePassword === hash) return callback(null, true);
 	else return callback(null,false);
-
-	//User.findOne({email:"caseyearl@outlook.com"},callback);
 };
 
+//Connected Users will be a dictionary of the currently connected users
 var connectedUsers = {};
+//
 var numberOfConnectedUsers = 0;
 
-function addConnectedUser(phone, socket) {
+function addConnectedUser(socket, phone) {
 	console.log('NEW CONNECTION')
 	console.log('Users phone: ', phone);
 	console.log('Users socket: ', socket);
@@ -60,8 +67,3 @@ function addConnectedUser(phone, socket) {
 module.exports.addConnectedUser = addConnectedUser;
 module.exports.connectedUsers = connectedUsers;
 module.exports.numberOfConnectedUsers = numberOfConnectedUsers;
-
-
-//use users
-//db.createCollection('users');
-//db.users.insert({first_name:"Casey",last_name:"Earl",password_hash:"abcde",email:"caseyearl@outlook.com",username:"caseyearl@outlook.com"});
