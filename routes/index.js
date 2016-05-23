@@ -26,9 +26,10 @@ io.on('connection', function (socket) {
 			if(user){
 				var newList = new List({
 					title:name,
-					to:user._id,
-					from:null,
+					to:to,
+					from:user._id,
 					remindersList:null,
+					index:0,
 				});
 				console.log(newList);
 				List.saveList(newList,function(err, list){
