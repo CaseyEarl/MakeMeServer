@@ -24,17 +24,19 @@ io.on('connection', function (socket) {
 		console.log(to);
 		User.getUserByPhone(number, function(err,user){
 			if(user){
-				newList = new List({
+				var newList = new List({
 					title:name,
-					from:user._id,
+					to:user._id,
+				});
+				List.saveList(newList,function(err, list){
+					if(err) throw err;
+					socket.emit('update-list',{id:list.id});
 				});
 			}
+			
 		});
 		
-		List.saveList(newList,function(err, list){
-			if(err) throw err;
-			socket.emit('update-list',{id:list.id});
-		});
+		
 		
 	});
 
@@ -60,7 +62,6 @@ io.on('connection', function (socket) {
 				else{
 					list.remindersList.push(reminder._id);
 				}
-
 			});
 		});
 
