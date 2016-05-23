@@ -30,12 +30,12 @@ io.on('connection', function (socket) {
 				});
 			}
 		});
-		/*
-		List.createList(newList,function(err, list){
+		
+		List.saveList(newList,function(err, list){
 			if(err) throw err;
 			socket.emit('update-list',{id:list.id});
 		});
-		*/
+		
 	});
 
 	socket.on('create-reminder', function(name, number, listID, alarm){
@@ -43,12 +43,29 @@ io.on('connection', function (socket) {
 		console.log(number);
 		console.log(listID);
 		console.log(alarm);
-		/*
-		Reminder.createReminder(newReminder, function(err,reminder){
+
+		var newReminder = new Reminder({
+			name:name,
+			alarm:alarm,
+			index:number,
+		});
+		
+		Reminder.saveReminder(newReminder, function(err,reminder){
 			if(err) throw err;
 			//socket.emit('update-')
-		})
-		*/
+			List.getListbyId(listID, function(err,list){
+				if(list == null){
+					console.log('Error list not found with ID: ' + listID);
+				}
+				else{
+					list.remindersList.push(reminder._id);
+				}
+
+			});
+		});
+
+		
+
 	});
 
 	socket.on('register', function (name, number, pass) {

@@ -9,7 +9,6 @@ var reminderSchema = new Schema(
 	{
 		task: String,
 		alarm: Date,
-		status: String,
 		index: Number,
 	},
 	{

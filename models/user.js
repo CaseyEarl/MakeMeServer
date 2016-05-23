@@ -45,6 +45,8 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 	else return callback(null,false);
 };
 
+
+
 //Connected Users will be a dictionary of the currently connected users
 var connectedUsers = {};
 //
