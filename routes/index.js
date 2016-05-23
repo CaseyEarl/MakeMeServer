@@ -22,13 +22,14 @@ io.on('connection', function (socket) {
 		console.log(name);
 		console.log(number);
 		console.log(to);
-		var toOther = to;
-		console.log(toOther);
+		if(to == ""){
+			to = null;
+		}
 		User.getUserByPhone(number, function(err,user){
 			if(user){
 				var newList = new List({
 					title:name,
-					to:toOther,
+					to:to,
 					from:user._id,
 					remindersList:null,
 					index:0,
