@@ -23,3 +23,7 @@ var List = module.exports = mongoose.model('List', listSchema);
 module.exports.saveList = function(newList, callback){
 	newList.save(callback);
 };
+
+module.exports.getListbyId = function(id, callback){
+	List.findOne({_id:id},callback);
+};

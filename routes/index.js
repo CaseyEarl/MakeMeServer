@@ -27,10 +27,13 @@ io.on('connection', function (socket) {
 				var newList = new List({
 					title:name,
 					to:user._id,
+					from:null,
+					remindersList:null,
 				});
+				console.log(newList);
 				List.saveList(newList,function(err, list){
 					if(err) throw err;
-					socket.emit('update-list',{id:list.id});
+					//socket.emit('update-list',{id:list.id});
 				});
 			}
 			
