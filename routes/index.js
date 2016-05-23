@@ -37,7 +37,7 @@ io.on('connection', function (socket) {
 				console.log(newList);
 				List.saveList(newList,function(err, list){
 					if(err) throw err;
-					//socket.emit('update-list',{id:list.id});
+					socket.emit('update-list',{id:list._id, name:list.title});
 				});
 			}
 			

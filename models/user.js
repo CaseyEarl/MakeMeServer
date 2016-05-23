@@ -64,6 +64,10 @@ function addConnectedUser(socket, phone) {
     else{
     	connectedUsers[phone].push(socket);
     }
+    console.log('Connected Users Table:')
+    for(var key in connectedUsers){
+    	console.log(connectedUsers[key]);
+    }
 }
 
 module.exports.addConnectedUser = addConnectedUser;
